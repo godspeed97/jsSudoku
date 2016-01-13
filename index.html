@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="css/sudoku.css">
+        <link rel="stylesheet" type="text/css" href="css/menu.css">
+
+        <script src="puzzles/hardestSudokus.js"></script>
+        <script src="puzzles/AngusJohnson.js"></script>
+        <script src="puzzles/hard.js"></script>
+        <script src="puzzles/puzzle17clues.js"></script>
+
+        <script src="js/sudokuMain.js"></script>
+        <script src="js/sudokuModel.js"></script>
+        <script src="js/SudokuGrid.js"></script>
+    </head>
+    <body>
+    <div id="sudoku">
+       <nav id="menunav">
+	       <ul>
+		      <li><span>Puzzle</span>
+                 <ul>
+				    <li><span>Nouveau...</span>
+                        <ul>
+						   <li><span id="puzzleFacile">Facile</span></li>
+						   <li><span id="puzzleMoyen">Moyen</span></li>
+						   <li><span id="puzzleDifficile">Difficile</span></li>
+						   <li><span id="puzzleTresDifficile">Très difficile</span></li>
+				        </ul>
+                    </li>
+				    <li><span id="puzzleManuel">Manuel</span></li>
+				    <li><span id="inCanonique">Forme Canonique</span></li>
+                    <li><span id="reset">Reset</span></li>
+                </ul>
+              </li>
+		      <li id="menuAffichage"><span>Affichage</span>
+			      <ul>
+				     <li><span id="outCanonique">Forme Canonique</span></li>
+			      </ul>
+		      </li>
+		      <li id="menuAssistance"><span>Assistance</span>
+			     <ul>
+				    <li><span id="hints">Hints</span></li>
+                     <li><span id="autoPlay">Autoplay</span></li>
+                     <li><span id="check">Check</span></li>
+                     <li><span id="solution">Solution</span></li>
+                 </ul>
+		      </li>
+		      <li><span>Aide</span></li>
+	      </ul>
+       </nav> 
+
+       <div id="sudokuGrid"></div>
+
+        <div id="bottomContainer">
+           <div id="marksMenu">
+               <label><input type='radio' name='test' value='1' id="marksNONE" checked><span>notes off</span></label>
+               <label><input type='radio' name='test' value='3' id="marksNOTES"><span>notes on</span></label>
+			   <label><input type='radio' name='test' value='2' id="marksCANDIDATES"><span>candidats</span></label>
+            </div> 
+
+            <div id="OkCancel">
+			<button id="OKbtn">OK</button>
+			<button id="CANCELbtn">Annuler</button>
+            </div>
+        </div>
+
+       <textarea readonly id="dialog"></textarea>  
+    </div>      
+	</body>
+</html>

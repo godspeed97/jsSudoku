@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="subgrids.css">
+        <title></title>
+    </head>
+    <body>
+
+
+
+
+        <h1>Résolution automatique de sudokus 9x9</h1>
+           <p>La sous-grille, telle que définie ici, est un concept très simple en termes duquel on peut définir 
+              un algorithme naïf  mais efficace de résolution de sudokus 9x9 .</p>
+
+            <p>Une sous-grille est un sous-ensemble de 9 cellules de la grille principale provenant de lignes, colonnes 
+               et régions différentes de cette grille. Il est facile de reformuler les règles du sudoku en termes de sous-grilles; 
+               ces règles disent que chaque chiffre de 1 à 9 doit apparaître exactement 9 fois dans 9 lignes, colonnes et 
+               régions différentes  de la grille. En termes de sous-grilles, la reformulation est toute simple: 
+               chaque chiffre de 1 à 9 doit apparaître dans les 9 cellules d'une sous-grille.</p>
+
+
+             <p>On peut démontrer qu'il y a 46656 sous-grilles différentes dans une grille 9x9; ces sous grilles peuvent 
+                être déterminée par l'algorithme naïf suivant: </p>
+              <ul>
+                  <li>établir toutes les combinaisons possibles de neuf cellules 
+                       en choisissant une cellule par colonne; il y a 9x9x9x9x9x9x9x9x9 combinaisons possibles</li>
+                  <li>éliminer toutes les combinaisons où la même ligne ou la même région apparaissent plus d'une fois.</li>
+              </ul>
+         
+            <div class="info">
+                
+                <table class="sudokuGrid">
+                <caption>Exemple de sous-grille</caption>
+                <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell blue">1,2</td>             
+                   <td class="gridTableCell largeMarginRight"></td>       
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell blue">2,4</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>                                  
+                   <td class="gridTableCell largeMarginRight largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginRight largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom blue">3,7</td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell"></td>                  
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight blue">4,3</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight blue">5,6</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>                                  
+                   <td class="gridTableCell largeMarginRight largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginRight largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom blue">6,9</td>
+               </tr>               
+               <tr>
+                   <td class="gridTableCell blue">7,1</td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>
+                <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell blue">8,8</td>
+                   <td class="gridTableCell"></td>
+               </tr>  
+               <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell blue">9,5</td>
+                   <td class="gridTableCell  largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>                                                
+           </table>
+                <div id="infoSubgrid">
+                    
+                       <p>À gauche, une sous-grille identifiée par les cellules avec un background bleu et
+                       ayant comme contenu les coordonnées <i>ligne,colonne</i> de la cellule.<br>
+                       On peut démontrer qu'il existe 46656 sous-grilles différentes dans une grille 9x9.</p>
+                        <p>Exemple d'implantation en javascript: une sous-grille sera représentée par un array de 10 éléments
+                            dont le premier (l'élément d'index 0) n'est pas utilisé. Pour les éléments d'index 1 à 9, 
+                            la position dans l'array et la valeur de l'array à cette position, représentent respectivement
+                            la colonne et la ligne d'une cellule composant la sous-grille. L'array associé à la sous-grille à gauche, serait donc:<br>
+                            [0, 7, 1, 4, 2, 9, 5, 3, 8, 6 ] </p>
+                    
+                 </div>
+  
+            </div>
+
+        <p style="clear:both;">On retrouve toujours dans une grille de sudoku complétée 
+            neuf sous-grilles disjointes où toutes les cellules d'une même sous-grille contiennent un
+            même entier différend d'une sous-grille à l'autre.</p>
+       
+        <p></p>
+        <p>Dans ce qui suit, nous allons démontrer comment calculer les 46656 sous-grilles différentes et comment 
+            s'en servir pour résoudre des sudokus ou les déclarer illégaux ou à solutions multiples.</p>
+
+
+
+
+
+ 
+        
+        
+        <p style="page-break-before: always">&nbsp;</p>     
+        <h2>Résolution automatique</h2>
+         <p>Pour solutionner un sudoku pour lequel nous avons des clues de départ, il suffit de 
+            suivre les étapes de l'algorithme suivant:</p>
+        <ul>
+           <li>considérons au départ que la  grille 9x9 est vide; comme il n'y a aucune raison de supposer que dans 
+               la solution finale un chiffre donné occupera une sous-grille particulière, on associe chaque chiffre 
+               de 1 à 9 à un ensemble de 46656 sous-grilles potentielles, c'est-à-dire qui ont toutes le “potentiel” 
+               de devenir la sous-grille solution pour le chiffre associé;</li>
+            <li>introduisons ensuite les clues une à la fois; chaque nouvelle clue diminue le nombre de sous-grilles 
+                potentielles associées aux chiffres 1 à 9; par exemple, si on place la clue '6' en ligne 1, colonne 2, 
+                il et clair que parmi toutes les sous-grilles potentielles associées au chiffre '6' , il faut éliminer 
+                celles qui ne comprennent pas de cellule à l'intersection de la ligne 1 et de la colonne 2; comme le montre 
+                les exemples plus loin,  l'introduction successive des clues induit une diminution rapide et considérable des 
+                ensembles de départ, de sorte qu'après l'introduction de toutes les clues, il ne reste qu'un petit nombre 
+                de sous-grilles potentielles dans chacun des neuf ensembles;</li>
+            <li>pour trouver la (ou les) solution du sudoku, il suffit de trouver neuf sous-grilles disjointes à raison de 
+                une dans chacun des ensembles résiduels; ceci peut se faire en faisant toutes les combinaisons de 9 sous-grilles 
+                prises à raison de une par ensemble et en choisissant la combinaison pour laquelle ces sous-grilles n'ont aucune 
+                cellule commune; lorsqu'une solution est trouvée, il suffit, pour trouver la solution du sudoku,  de remplir 
+                chaque cellule de chaque sous-grille solution avec son entier associé.
+                    <ul>
+                        <li>Notons qu'il peut y avoir 0, 1 ou plusieurs solutions possibles.</li>
+                        <li>Notons aussi que ce traitement combinatoire peut être très coûteux. Il y a donc lieu de l'optimiser 
+                            en classant les ensembles résiduels par ordre croissant de taille et de combiner les sous-grilles 
+                            en partant des petits ensembles vers les grands.</li> 
+                    </ul>
+                </ul>
+        <div class="info">
+            <h2 class="titleBox">Exemple 1: un sudoku classé "facile"</h2><br>
+            <table class="sudokuGrid dim300">
+                <caption>Sudoku de niveau facile</caption>
+                <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">6</td>             
+                   <td class="gridTableCell largeMarginRight"></td>       
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight">5</td>
+                   <td class="gridTableCell">7</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">2</td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight">4</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">9</td>
+                   <td class="gridTableCell largeMarginRight">6</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">1</td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell largeMarginBottom">8</td>
+                   <td class="gridTableCell largeMarginBottom">7</td>                                  
+                   <td class="gridTableCell largeMarginRight largeMarginBottom">1</td>
+                   <td class="gridTableCell largeMarginBottom">3</td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginRight largeMarginBottom">2</td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell">5</td>                  
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">7</td>
+                   <td class="gridTableCell largeMarginRight">1</td>
+                   <td class="gridTableCell">3</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">3</td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">5</td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">7</td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>                                  
+                   <td class="gridTableCell largeMarginRight largeMarginBottom">7</td>
+                   <td class="gridTableCell largeMarginBottom">8</td>
+                   <td class="gridTableCell largeMarginBottom">2</td>
+                   <td class="gridTableCell largeMarginRight largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom">5</td>
+               </tr>               
+               <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell">5</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight">9</td>
+                   <td class="gridTableCell">6</td>
+                   <td class="gridTableCell">8</td>
+                   <td class="gridTableCell">7</td>
+               </tr>
+                <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">8</td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell">2</td>
+                   <td class="gridTableCell">6</td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell">1</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>  
+               <tr>
+                   <td class="gridTableCell">7</td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight">6</td>
+                   <td class="gridTableCell">4</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell  largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">2</td>
+                   <td class="gridTableCell"></td>
+               </tr>                                                
+           </table>
+        <div id="texte2">
+        <ul>
+        <li>au départ, chaque entier de 1 à 9 est associé à un ensemble de 46656 sous-grilles potentielles.
+        </li>
+        <li>Ajout d'une première clue: un 6 en ligne 1 colonne 2
+             <ul>
+                         <li>des 46656 sous-grilles potentielles pour le chiffre 6 il faut éliminer toutes celles pour lesquelles 
+                             la cellule en ligne 1, colonne 2 n'est pas un 6; il n'en reste plus que 5184, soit une sous-grille sur neuf;
+                         </li>
+                         <li>
+                             puisqu'il y a un 6 en ligne 1, colonne 2, il est évident qu'il ne peut y avoir de 1, de 2, de 3, 
+                             de 4, de 5, de 7, de 8 ou de 9 au même endroit; donc, il faut éliminer des ensembles de sous-grilles 
+                             potentielles de chacun de ces huit chiffres toutes celles qui ont un 6 en ligne 1, colonne 2; après
+                             cette élimination, le nombre de sous-grilles potentielles pour les chiffres 1, 2, 3, 4, 5, 7, 8 et 9 
+                             est réduit à 41472 (résultat obtenu par notre programme de résolution).
+                         </li>
+             </ul>
+           </li>
+                 <li>ajout d'une deuxième clue: un 5 en ligne 1, colonne 6
+                     <ul>
+                         <li>de la même façon que pour la première clue, on ne doit conserver dans l'ensemble résiduel de sous-grilles
+                              associées au chiffre 5 que celles qui ont un 5 en ligne 1, colonne 6; leur nombre passe donc de 
+                              41472 à 5184</li>
+                         <li>pour les chiffres  1,2,3,4,6,7,8 et 9, il faut éliminer de leurs ensembles résiduels toutes les
+                             sous-grilles qui ont un 5 en (ligne 1, colonne 6); pour chaque entier, on trouvera le nombre de 
+                             sous-grilles qui reste dans le tableau 3, plus loin.</li>
+                     </ul>
+                 </li>
+            <li>Ainsi de suite jusqu'à ce que les 37 clues aient été ajoutées.</li>
+        </ul>
+        </div>
+       
+        <p style="clear: both;padding-top: 20px;"></p>
+            
+        <h3 class="titleBox">Nombre de sous-grilles compatibles avec les clues</h3><br>
+         <table class="watermarks">
+                    <caption>Tableau: Nombre de sous-grilles restantes après l'introduction de chaque clue </caption>
+                    <tr><th>ligne</th><th>col</th><th>clue</th>
+                    <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+                        <th>6</th><th>7</th><th>8</th><th>9</th>
+                    </tr>
+                   <tr>
+                        <td colspan="3">initial</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>6</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>5184</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>6</td>
+                        <td>5</td>
+                        <td>36288</td>
+                        <td>36288</td>
+                        <td>36288</td>
+                        <td>36288</td>
+                        <td>5184</td>
+                        <td>5184</td>
+                        <td>36288</td>
+                        <td>36288</td>
+                        <td>36288</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>7</td>
+                        <td>7</td>
+                        <td>31104</td>
+                        <td>31104</td>
+                        <td>31104</td>
+                        <td>31104</td>
+                        <td>5184</td>
+                        <td>5184</td>
+                        <td>5184</td>
+                        <td>31104</td>
+                        <td>31104</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>9</td>
+                        <td>2</td>
+                        <td>25290</td>
+                        <td>5184</td>
+                        <td>25920</td>
+                        <td>25920</td>
+                        <td>5184</td>
+                        <td>5184</td>
+                        <td>5184</td>
+                        <td>25920</td>
+                        <td>25920</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>23328</td>
+                        <td>4320</td>
+                        <td>23328</td>
+                        <td>2592</td>
+                        <td>4320</td>
+                        <td>5184</td>
+                        <td>4320</td>
+                        <td>23328</td>
+                        <td>23328</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>....</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>3</td>
+                        <td>6</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>6</td>
+                        <td>94</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>38</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>6</td>
+                        <td>6</td>
+                        <td>14</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>38</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>8</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>14</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>30</td>
+                    </tr>
+                </table>   
+         <div id="texte3">          
+             <p>Dans le tableau, à gauche, on retrouve pour chacun des entiers 1 à 9 le nombre de sous-grilles toujours compatibles 
+                avec les clues après l'introduction des cinq premières et des trois dernières clues.</p> 
+             <p>On remarque:</p>
+             <ul>
+                 <li>que les sous-grilles associées aux chiffres 5 et 7 ont été complètement déterminées par les clues;</li>
+                 <li>qu'il ne reste que de très petits nombres de sous-grilles possibles pour les autres chiffres; 
+                     pour solutionner le sudoku, il suffira d'essayer toutes les combinaisons de neuf sous-grilles où
+                     chacune est associée à un chiffre différent et de choisir l'unique combinaison de 9 sous-grilles
+                     disjointes;</li>
+                 <li>s'il s'avérait qu'aucune des combinaisons n'est composée de sous-grilles disjointes, c'est que le sudoku
+                     n'a pas de solution;</li>
+                 <li>par contre s'il y a plus d'une combinaison de sous-grilles disjointes, c'est que le sudoku admet plus
+                     d'une solution.</li>
+                 </ul>
+                
+          </div>  
+     </div>  
+      <p>Ci-dessous, un sudoku ayant la réputation d'être le 
+          <a href="http://www.telegraph.co.uk/news/science/science-news/9359579/Worlds-hardest-sudoku-can-you-crack-it.html">
+              plus difficile jamais publié</a> ainsi que la taille des ensembles de sous-grilles au fur et à mesure de
+           l'ajout de chaque clue. </p>
+
+         <div class="info">
+            <h2 class="titleBox">Exemple 2: un sudoku extrêmement difficile</h2><br>
+            <table class="sudokuGrid dim300">
+                <caption>Sudoku le plus difficile du monde</caption>
+                <tr>
+                   <td class="gridTableCell">8</td>
+                   <td class="gridTableCell"></td>             
+                   <td class="gridTableCell largeMarginRight"></td>       
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight">3</td>
+                   <td class="gridTableCell">6</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom">7</td>                                  
+                   <td class="gridTableCell largeMarginRight largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom">9</td>
+                   <td class="gridTableCell largeMarginRight largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom">2</td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell"></td>                  
+                   <td class="gridTableCell">5</td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight">7</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">4</td>
+                   <td class="gridTableCell largeMarginRight">5</td>
+                   <td class="gridTableCell">7</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>
+               <tr>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>                                  
+                   <td class="gridTableCell largeMarginRight largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom">1</td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginRight largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+                   <td class="gridTableCell largeMarginBottom">3</td>
+                   <td class="gridTableCell largeMarginBottom"></td>
+               </tr>               
+               <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight">1</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">6</td>
+                   <td class="gridTableCell">8</td>
+               </tr>
+                <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>                                  
+                   <td class="gridTableCell largeMarginRight">8</td>
+                   <td class="gridTableCell">5</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">1</td>
+                   <td class="gridTableCell"></td>
+               </tr>  
+               <tr>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell">9</td>                                  
+                   <td class="gridTableCell largeMarginRight"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell  largeMarginRight"></td>
+                   <td class="gridTableCell">4</td>
+                   <td class="gridTableCell"></td>
+                   <td class="gridTableCell"></td>
+               </tr>                                                
+           </table>
+                      <table class="watermarks">
+                    <caption>Tableau: Nombre de sous-grilles restantes après l'introduction de chaque clue </caption>
+                    <tr><th>ligne</th><th>col</th><th>clue</th>
+                    <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+                        <th>6</th><th>7</th><th>8</th><th>9</th>
+                    </tr>
+                   <tr>
+                        <td colspan="3">initial</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                        <td>46656</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>8</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>41472</td>
+                        <td>5184</td>
+                        <td>41472</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>36288</td>
+                        <td>36288</td>
+                        <td>5184</td>
+                        <td>36288</td>
+                        <td>36288</td>
+                        <td>36288</td>
+                        <td>36288</td>
+                        <td>5184</td>
+                        <td>36288</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>6</td>
+                        <td>31968</td>
+                        <td>31968</td>
+                        <td>5184</td>
+                        <td>31968</td>
+                        <td>31968</td>
+                        <td>4320</td>
+                        <td>31968</td>
+                        <td>4320</td>
+                        <td>31968</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>7</td>
+                        <td>27648</td>
+                        <td>27648</td>
+                        <td>5184</td>
+                        <td>27648</td>
+                        <td>27648</td>
+                        <td>3456</td>
+                        <td>4320</td>
+                        <td>4320</td>
+                        <td>27648</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>9</td>
+                        <td>24192</td>
+                        <td>24192</td>
+                        <td>4320</td>
+                        <td>24192</td>
+                        <td>24192</td>
+                        <td>3456</td>
+                        <td>4320</td>
+                        <td>3456</td>
+                        <td>3456</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>....</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>1</td>
+                        <td>22</td>
+                        <td>350</td>
+                        <td>120</td>
+                        <td>756</td>
+                        <td>17</td>
+                        <td>78</td>
+                        <td>17</td>
+                        <td>21</td>
+                        <td>530</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>2</td>
+                        <td>9</td>
+                        <td>22</td>
+                        <td>327</td>
+                        <td>98</td>
+                        <td>666</td>
+                        <td>17</td>
+                        <td>57</td>
+                        <td>17</td>
+                        <td>21</td>
+                        <td>48</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>7</td>
+                        <td>4</td>
+                        <td>22</td>
+                        <td>327</td>
+                        <td>68</td>
+                        <td>100</td>
+                        <td>14</td>
+                        <td>57</td>
+                        <td>17</td>
+                        <td>21</td>
+                        <td>48</td>
+                    </tr>
+                </table>
+         </div>
+    </body>
+</html>

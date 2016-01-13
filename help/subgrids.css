@@ -1,0 +1,117 @@
+body {
+}
+dl{
+    font-weight: bold;
+    font-size: larger;
+}
+dl dd{
+    font-style: italic;
+}.info{
+    background-color: #eee;
+    overflow: auto;
+}
+.info h2,h3{
+    text-align: center;
+}
+
+#texte2{
+    float: left;
+    display:  inline-block;
+    width:  600px;
+    margin-left:  30px;
+    margin-top:  20px;
+    border-top: solid 1px;
+    border-bottom:  solid 1px; 
+}
+
+
+
+#infoSubgrid p{
+    float: left;
+    width:  300px;
+    margin-left:  30px;
+    margin-top:  20px;
+    border-top: solid 1px;
+    border-bottom:  solid 1px;
+}
+
+.sudokuGrid{
+   
+    float:  left;
+    width:  200px;
+    height:  200px;
+    empty-cells: show;
+    padding:  0px;
+    border-spacing: 0px;
+    border: solid 5px;
+    margin: 15px;
+    text-align: center;
+    
+    
+}
+.dim300{
+    width:  300px;
+    height: 300px;
+}
+.gridTableCell{
+    border:  solid 1px;
+    width:  11%;
+    height:  11%;
+    padding:  0px;
+}
+.blue
+{
+    background-color: #0ff;
+}
+
+.largeMarginRight{
+    border-right: solid 3px;
+}
+
+.largeMarginBottom{
+    border-bottom: solid 3px;
+}
+.code{
+    white-space: pre;
+    font-family: 'Courier New';
+    font-size: smaller;
+    background-color: #eee;
+}
+.watermarks{  
+    float: left;
+    width:  300px;
+    height:  300px;
+    empty-cells: show;
+    padding:  15px;
+    border-spacing: 0px;
+    border: solid 2px;
+    margin: 15px;
+    text-align: center;
+    
+}
+.watermarks td,th {
+    border:  solid 1px;
+    padding:  2px;
+}
+#texte3{
+    float: left;
+    display:  inline-block;
+    width:  400px;
+    margin-left:  30px;
+    margin-top:  20px;
+    border-top: solid 1px;
+    border-bottom:  solid 1px; 
+    font-style: italic;
+}
+
+.watermarks th{
+    background-color: #0026ff;
+}
+
+.titleBox{
+    border: solid 2px;
+    display:  inline-block;
+   position:  relative;
+   left: 30%;
+   background-color: #fff;
+}

@@ -1,0 +1,55 @@
+#bottomContainer {
+    height:  5%;
+}
+
+#marksMenu {
+    height:  100%;
+    color: white;
+}
+
+#marksMenu input[type="radio"] {
+    vertical-align: sub;
+}
+
+#marksMenu label {
+    margin: 0 10px;
+}
+
+#OkCancel {
+    display:  none;
+    height:  100%;
+}
+
+#OKbtn {
+	margin-right: 20px;
+}
+
+#sudoku {
+    position:  relative;
+    width: 400px;
+    height:  600px;
+    background-color: #000;
+    border-radius: 4%;
+    text-align: center;
+}
+
+#sudokuGrid {
+    position:  relative;
+    width: 95%;
+    height:  70%;
+    display: inline-block;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+#dialog {
+    margin-top: 0px;
+    margin-left: 8%;
+    background-color: #fff;
+    width: 87%;
+    height: 12%;
+    z-index: 1;
+}
+
+
+
