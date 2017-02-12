@@ -22,6 +22,8 @@ sur "section" pour positionnement rapide)
 
 *******************************************************************************************/
 
+console.warn('test');
+
 if (typeof (sudoku) === "undefined") {
     var sudoku = {};
 }
